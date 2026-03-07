@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "ಹೋಮ್",
+    "rhymes": "ಹಾಡುಗಳು",
+    "studio": "ಸ್ಟುಡಿಯೋ",
+    "games": "ಆಟಗಳು",
+    "library": "ಗ್ರಂಥಾಲಯ",
+    "settings": "ಸೆಟ್ಟಿಂಗ್ಸ್"
+  },
+  "dashboard": {
+    "welcome": "ಕಿಡ್ಸ್ ರೈಮ್ಸ್ ಸ್ಟುಡಿಯೋಗೆ ಸ್ವಾಗತ",
+    "subtitle": "ನಿಮ್ಮ ಭಾಷೆಯಲ್ಲಿ ಹಾಡುಗಳನ್ನು ರಚಿಸಿ, ಹಾಡಿ ಮತ್ತು ಆಡಿ!",
+    "createRhymes": "ಹಾಡುಗಳನ್ನು ರಚಿಸಿ",
+    "createRhymesDesc": "AI ಸಹಾಯದಿಂದ ಮಜಾ ಹಾಡುಗಳನ್ನು ಬರೆಯಿರಿ",
+    "productionStudio": "ಪ್ರೊಡಕ್ಷನ್ ಸ್ಟುಡಿಯೋ",
+    "productionStudioDesc": "ಸಂಗೀತ, ಚಿತ್ರಗಳು ಮತ್ತು ವೀಡಿಯೊಗಳನ್ನು ತಯಾರಿಸಿ",
+    "playGames": "ಆಟಗಳನ್ನು ಆಡಿ",
+    "playGamesDesc": "ಮಜಾದಲ್ಲಿ ಕಲಿಯಿರಿ",
+    "myLibrary": "ನನ್ನ ಗ್ರಂಥಾಲಯ",
+    "myLibraryDesc": "ನಿಮ್ಮ ಉಳಿಸಿದ ಹಾಡುಗಳು ಮತ್ತು ಸೃಷ್ಟಿಗಳು"
+  },
+  "rhymes": {
+    "title": "ಹಾಡು ರಚನಾಕಾರ",
+    "generateLyrics": "ಸಾಹಿತ್ಯ ರಚಿಸಿ",
+    "editLyrics": "ಸಾಹಿತ್ಯ ಸಂಪಾದಿಸಿ",
+    "saveLyrics": "ಸಾಹಿತ್ಯ ಉಳಿಸಿ",
+    "selectTheme": "ವಿಷಯ ಆಯ್ಕೆಮಾಡಿ",
+    "selectLanguage": "ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ",
+    "themes": {
+      "animals": "ಪ್ರಾಣಿಗಳು",
+      "colors": "ಬಣ್ಣಗಳು",
+      "numbers": "ಸಂಖ್ಯೆಗಳು",
+      "fruits": "ಹಣ್ಣುಗಳು",
+      "festivals": "ಹಬ್ಬಗಳು",
+      "nature": "ಪ್ರಕೃತಿ",
+      "family": "ಕುಟುಂಬ",
+      "bodyParts": "ದೇಹದ ಭಾಗಗಳು",
+      "transport": "ಸಾರಿಗೆ",
+      "greetings": "ಶುಭಾಶಯಗಳು"
+    }
+  },
+  "studio": {
+    "title": "ಪ್ರೊಡಕ್ಷನ್ ಸ್ಟುಡಿಯೋ",
+    "music": "ಸಂಗೀತ",
+    "images": "ಚಿತ್ರಗಳು",
+    "video": "ವೀಡಿಯೊ",
+    "voice": "ಧ್ವನಿ",
+    "generateMusic": "ಸಂಗೀತ ರಚಿಸಿ",
+    "generateImage": "ಚಿತ್ರ ರಚಿಸಿ",
+    "generateVideo": "ವೀಡಿಯೊ ರಚಿಸಿ",
+    "generateVoice": "ಧ್ವನಿ ರಚಿಸಿ",
+    "styleSelector": "ಶೈಲಿ ಆಯ್ಕೆಮಾಡಿ",
+    "styles": {
+      "lullaby": "ಜೋಗುಳ",
+      "upbeat": "ಉತ್ಸಾಹದ ಹಾಡು",
+      "classical": "ಶಾಸ್ತ್ರೀಯ ಭಾರತೀಯ",
+      "folk": "ಜಾನಪದ ಸಂಗೀತ"
+    },
+    "imageMode": {
+      "cartoon": "ಕಾರ್ಟೂನ್",
+      "realistic": "ವಾಸ್ತವಿಕ"
+    }
+  },
+  "games": {
+    "title": "ಮಜಾ ಆಟಗಳು",
+    "alphabet": "ಅಕ್ಷರ ಬರೆಯುವುದು",
+    "alphabetDesc": "ಅಕ್ಷರಗಳನ್ನು ಬರೆಯಲು ಕಲಿಯಿರಿ",
+    "counting": "ಎಣಿಕೆಯ ಮಜಾ",
+    "countingDesc": "ವಸ್ತುಗಳನ್ನು ಎಣಿಸಿ ಸಂಖ್ಯೆಗಳನ್ನು ಕಲಿಯಿರಿ",
+    "matching": "ಮೆಮೊರಿ ಮ್ಯಾಚ್",
+    "matchingDesc": "ಕಾರ್ಡ್ ತಿರುಗಿಸಿ ಜೋಡಿ ಹುಡುಕಿ",
+    "karaoke": "ಹಾಡು ಕರೋಕೆ",
+    "karaokeDesc": "ಹಾಡುಗಳೊಂದಿಗೆ ಹಾಡಿ",
+    "puzzle": "ಪಝಲ್ ಆಟ",
+    "puzzleDesc": "ತುಂಡುಗಳನ್ನು ಜೋಡಿಸಿ ಚಿತ್ರ ಪೂರ್ಣಗೊಳಿಸಿ",
+    "score": "ಅಂಕಗಳು",
+    "stars": "ನಕ್ಷತ್ರಗಳು",
+    "playAgain": "ಮತ್ತೆ ಆಡಿ",
+    "nextLevel": "ಮುಂದಿನ ಹಂತ"
+  },
+  "common": {
+    "loading": "ಲೋಡ್ ಆಗುತ್ತಿದೆ...",
+    "save": "ಉಳಿಸಿ",
+    "cancel": "ರದ್ದುಮಾಡಿ",
+    "delete": "ಅಳಿಸಿ",
+    "edit": "ಸಂಪಾದಿಸಿ",
+    "generate": "ರಚಿಸಿ",
+    "download": "ಡೌನ್‌ಲೋಡ್",
+    "share": "ಹಂಚಿಕೊಳ್ಳಿ",
+    "back": "ಹಿಂದೆ",
+    "next": "ಮುಂದೆ",
+    "play": "ಪ್ಲೇ",
+    "pause": "ವಿರಾಮ",
+    "stop": "ನಿಲ್ಲಿಸಿ",
+    "retry": "ಮತ್ತೆ ಪ್ರಯತ್ನಿಸಿ",
+    "error": "ಏನೋ ತಪ್ಪಾಗಿದೆ",
+    "success": "ಯಶಸ್ವಿ!",
+    "language": "ಭಾಷೆ",
+    "selectLanguage": "ಭಾಷೆ ಆಯ್ಕೆಮಾಡಿ"
+  }
+}

@@ -1,1 +1,101 @@
-{"nav":{"home":"Home","rhymes":"Rhymes","studio":"Studio","games":"Games","settings":"Settings"},"dashboard":{"welcome":"Welcome to Kids Rhymes Studio","createRhymes":"Create Rhymes","productionStudio":"Production Studio","playGames":"Play Games","myLibrary":"My Library"},"common":{"loading":"Loading...","save":"Save","cancel":"Cancel","generate":"Generate","download":"Download","back":"Back"}}
+{
+  "nav": {
+    "home": "Home",
+    "rhymes": "Rhymes",
+    "studio": "Studio",
+    "games": "Games",
+    "library": "Library",
+    "settings": "Settings"
+  },
+  "dashboard": {
+    "welcome": "Welcome to Kids Rhymes Studio",
+    "subtitle": "Create, sing, and play with rhymes in your language!",
+    "createRhymes": "Create Rhymes",
+    "createRhymesDesc": "Write fun rhymes with AI help",
+    "productionStudio": "Production Studio",
+    "productionStudioDesc": "Make music, images, and videos",
+    "playGames": "Play Games",
+    "playGamesDesc": "Learn while having fun",
+    "myLibrary": "My Library",
+    "myLibraryDesc": "Your saved rhymes and creations"
+  },
+  "rhymes": {
+    "title": "Rhyme Creator",
+    "generateLyrics": "Generate Lyrics",
+    "editLyrics": "Edit Lyrics",
+    "saveLyrics": "Save Lyrics",
+    "selectTheme": "Select a Theme",
+    "selectLanguage": "Select Language",
+    "themes": {
+      "animals": "Animals",
+      "colors": "Colors",
+      "numbers": "Numbers",
+      "fruits": "Fruits",
+      "festivals": "Festivals",
+      "nature": "Nature",
+      "family": "Family",
+      "bodyParts": "Body Parts",
+      "transport": "Transport",
+      "greetings": "Greetings"
+    }
+  },
+  "studio": {
+    "title": "Production Studio",
+    "music": "Music",
+    "images": "Images",
+    "video": "Video",
+    "voice": "Voice",
+    "generateMusic": "Generate Music",
+    "generateImage": "Generate Image",
+    "generateVideo": "Generate Video",
+    "generateVoice": "Generate Voice",
+    "styleSelector": "Select Style",
+    "styles": {
+      "lullaby": "Lullaby",
+      "upbeat": "Upbeat",
+      "classical": "Classical Indian",
+      "folk": "Folk"
+    },
+    "imageMode": {
+      "cartoon": "Cartoon",
+      "realistic": "Realistic"
+    }
+  },
+  "games": {
+    "title": "Fun Games",
+    "alphabet": "Alphabet Tracing",
+    "alphabetDesc": "Learn to write letters",
+    "counting": "Counting Fun",
+    "countingDesc": "Count objects and learn numbers",
+    "matching": "Memory Match",
+    "matchingDesc": "Flip cards and find pairs",
+    "karaoke": "Rhyme Karaoke",
+    "karaokeDesc": "Sing along with rhymes",
+    "puzzle": "Jigsaw Puzzle",
+    "puzzleDesc": "Put the pieces together",
+    "score": "Score",
+    "stars": "Stars",
+    "playAgain": "Play Again",
+    "nextLevel": "Next Level"
+  },
+  "common": {
+    "loading": "Loading...",
+    "save": "Save",
+    "cancel": "Cancel",
+    "delete": "Delete",
+    "edit": "Edit",
+    "generate": "Generate",
+    "download": "Download",
+    "share": "Share",
+    "back": "Back",
+    "next": "Next",
+    "play": "Play",
+    "pause": "Pause",
+    "stop": "Stop",
+    "retry": "Retry",
+    "error": "Something went wrong",
+    "success": "Success!",
+    "language": "Language",
+    "selectLanguage": "Select Language"
+  }
+}

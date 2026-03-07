@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "হোম",
+    "rhymes": "ছড়া",
+    "studio": "স্টুডিও",
+    "games": "খেলা",
+    "library": "লাইব্রেরি",
+    "settings": "সেটিংস"
+  },
+  "dashboard": {
+    "welcome": "কিডস রাইমস স্টুডিওতে স্বাগতম",
+    "subtitle": "আপনার ভাষায় ছড়া তৈরি করুন, গান করুন এবং খেলুন!",
+    "createRhymes": "ছড়া তৈরি করুন",
+    "createRhymesDesc": "AI-এর সাহায্যে মজার ছড়া লিখুন",
+    "productionStudio": "প্রোডাকশন স্টুডিও",
+    "productionStudioDesc": "সঙ্গীত, ছবি এবং ভিডিও তৈরি করুন",
+    "playGames": "খেলা খেলুন",
+    "playGamesDesc": "আনন্দের সাথে শিখুন",
+    "myLibrary": "আমার লাইব্রেরি",
+    "myLibraryDesc": "আপনার সংরক্ষিত ছড়া এবং সৃষ্টি"
+  },
+  "rhymes": {
+    "title": "ছড়া রচনাকারী",
+    "generateLyrics": "গানের কথা তৈরি করুন",
+    "editLyrics": "গানের কথা সম্পাদনা করুন",
+    "saveLyrics": "গানের কথা সংরক্ষণ করুন",
+    "selectTheme": "বিষয় নির্বাচন করুন",
+    "selectLanguage": "ভাষা নির্বাচন করুন",
+    "themes": {
+      "animals": "পশুপাখি",
+      "colors": "রং",
+      "numbers": "সংখ্যা",
+      "fruits": "ফল",
+      "festivals": "উৎসব",
+      "nature": "প্রকৃতি",
+      "family": "পরিবার",
+      "bodyParts": "শরীরের অঙ্গ",
+      "transport": "যানবাহন",
+      "greetings": "শুভেচ্ছা"
+    }
+  },
+  "studio": {
+    "title": "প্রোডাকশন স্টুডিও",
+    "music": "সঙ্গীত",
+    "images": "ছবি",
+    "video": "ভিডিও",
+    "voice": "কণ্ঠস্বর",
+    "generateMusic": "সঙ্গীত তৈরি করুন",
+    "generateImage": "ছবি তৈরি করুন",
+    "generateVideo": "ভিডিও তৈরি করুন",
+    "generateVoice": "কণ্ঠস্বর তৈরি করুন",
+    "styleSelector": "শৈলী নির্বাচন করুন",
+    "styles": {
+      "lullaby": "ঘুমপাড়ানি গান",
+      "upbeat": "প্রাণবন্ত সুর",
+      "classical": "শাস্ত্রীয় ভারতীয়",
+      "folk": "লোকসঙ্গীত"
+    },
+    "imageMode": {
+      "cartoon": "কার্টুন",
+      "realistic": "বাস্তবসম্মত"
+    }
+  },
+  "games": {
+    "title": "মজার খেলা",
+    "alphabet": "অক্ষর লেখা",
+    "alphabetDesc": "অক্ষর লিখতে শিখুন",
+    "counting": "গণনার মজা",
+    "countingDesc": "জিনিস গুনুন এবং সংখ্যা শিখুন",
+    "matching": "মেমোরি ম্যাচ",
+    "matchingDesc": "কার্ড উল্টান এবং জোড়া খুঁজুন",
+    "karaoke": "ছড়া কারাওকে",
+    "karaokeDesc": "ছড়ার সাথে গান গাও",
+    "puzzle": "পাজল খেলা",
+    "puzzleDesc": "টুকরোগুলো জোড়া লাগিয়ে ছবি তৈরি করুন",
+    "score": "স্কোর",
+    "stars": "তারা",
+    "playAgain": "আবার খেলুন",
+    "nextLevel": "পরবর্তী স্তর"
+  },
+  "common": {
+    "loading": "লোড হচ্ছে...",
+    "save": "সেভ",
+    "cancel": "বাতিল",
+    "delete": "মুছুন",
+    "edit": "সম্পাদনা",
+    "generate": "তৈরি করুন",
+    "download": "ডাউনলোড",
+    "share": "শেয়ার",
+    "back": "পিছনে",
+    "next": "পরবর্তী",
+    "play": "চালান",
+    "pause": "বিরতি",
+    "stop": "থামান",
+    "retry": "আবার চেষ্টা করুন",
+    "error": "কিছু ভুল হয়েছে",
+    "success": "সফল!",
+    "language": "ভাষা",
+    "selectLanguage": "ভাষা নির্বাচন করুন"
+  }
+}

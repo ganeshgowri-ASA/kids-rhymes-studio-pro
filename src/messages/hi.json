@@ -1,1 +1,101 @@
-{"nav":{"home":"\u0939\u094b\u092e","rhymes":"\u0917\u0940\u0924","studio":"\u0938\u094d\u091f\u0942\u0921\u093f\u092f\u094b","games":"\u0916\u0947\u0932","settings":"\u0938\u0947\u091f\u093f\u0902\u0917\u094d\u0938"},"dashboard":{"welcome":"\u0915\u093f\u0921\u094d\u0938 \u0930\u093e\u0907\u092e\u094d\u0938 \u0938\u094d\u091f\u0942\u0921\u093f\u092f\u094b \u092e\u0947\u0902 \u0938\u094d\u0935\u093e\u0917\u0924"},"common":{"loading":"\u0932\u094b\u0921 \u0939\u094b \u0930\u0939\u093e \u0939\u0948...","save":"\u0938\u0947\u0935","generate":"\u092c\u0928\u093e\u090f\u0902","back":"\u0935\u093e\u092a\u0938"}}
+{
+  "nav": {
+    "home": "होम",
+    "rhymes": "गीत",
+    "studio": "स्टूडियो",
+    "games": "खेल",
+    "library": "लाइब्रेरी",
+    "settings": "सेटिंग्स"
+  },
+  "dashboard": {
+    "welcome": "किड्स राइम्स स्टूडियो में स्वागत",
+    "subtitle": "अपनी भाषा में गीत बनाएं, गाएं और खेलें!",
+    "createRhymes": "गीत बनाएं",
+    "createRhymesDesc": "AI की मदद से मज़ेदार गीत लिखें",
+    "productionStudio": "प्रोडक्शन स्टूडियो",
+    "productionStudioDesc": "संगीत, चित्र और वीडियो बनाएं",
+    "playGames": "खेल खेलें",
+    "playGamesDesc": "मज़े के साथ सीखें",
+    "myLibrary": "मेरी लाइब्रेरी",
+    "myLibraryDesc": "आपके सहेजे हुए गीत और रचनाएं"
+  },
+  "rhymes": {
+    "title": "गीत रचनाकार",
+    "generateLyrics": "गीत बनाएं",
+    "editLyrics": "गीत संपादित करें",
+    "saveLyrics": "गीत सहेजें",
+    "selectTheme": "विषय चुनें",
+    "selectLanguage": "भाषा चुनें",
+    "themes": {
+      "animals": "जानवर",
+      "colors": "रंग",
+      "numbers": "गिनती",
+      "fruits": "फल",
+      "festivals": "त्योहार",
+      "nature": "प्रकृति",
+      "family": "परिवार",
+      "bodyParts": "शरीर के अंग",
+      "transport": "वाहन",
+      "greetings": "अभिवादन"
+    }
+  },
+  "studio": {
+    "title": "प्रोडक्शन स्टूडियो",
+    "music": "संगीत",
+    "images": "चित्र",
+    "video": "वीडियो",
+    "voice": "आवाज़",
+    "generateMusic": "संगीत बनाएं",
+    "generateImage": "चित्र बनाएं",
+    "generateVideo": "वीडियो बनाएं",
+    "generateVoice": "आवाज़ बनाएं",
+    "styleSelector": "शैली चुनें",
+    "styles": {
+      "lullaby": "लोरी",
+      "upbeat": "तेज़ धुन",
+      "classical": "शास्त्रीय भारतीय",
+      "folk": "लोक संगीत"
+    },
+    "imageMode": {
+      "cartoon": "कार्टून",
+      "realistic": "वास्तविक"
+    }
+  },
+  "games": {
+    "title": "मज़ेदार खेल",
+    "alphabet": "अक्षर लिखना",
+    "alphabetDesc": "अक्षर लिखना सीखें",
+    "counting": "गिनती का मज़ा",
+    "countingDesc": "वस्तुएं गिनें और संख्याएं सीखें",
+    "matching": "मेमोरी मैच",
+    "matchingDesc": "कार्ड पलटें और जोड़ी ढूंढें",
+    "karaoke": "गीत कराओके",
+    "karaokeDesc": "गीतों के साथ गाएं",
+    "puzzle": "पहेली जोड़ो",
+    "puzzleDesc": "टुकड़ों को जोड़कर चित्र बनाएं",
+    "score": "अंक",
+    "stars": "तारे",
+    "playAgain": "फिर से खेलें",
+    "nextLevel": "अगला स्तर"
+  },
+  "common": {
+    "loading": "लोड हो रहा है...",
+    "save": "सेव",
+    "cancel": "रद्द करें",
+    "delete": "हटाएं",
+    "edit": "संपादित करें",
+    "generate": "बनाएं",
+    "download": "डाउनलोड",
+    "share": "साझा करें",
+    "back": "वापस",
+    "next": "अगला",
+    "play": "चलाएं",
+    "pause": "रुकें",
+    "stop": "रोकें",
+    "retry": "पुनः प्रयास",
+    "error": "कुछ गलत हो गया",
+    "success": "सफल!",
+    "language": "भाषा",
+    "selectLanguage": "भाषा चुनें"
+  }
+}
