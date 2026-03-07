@@ -1,0 +1,14 @@
+{
+  "buildCommand": "npm run build",
+  "outputDirectory": ".next",
+  "framework": "nextjs",
+  "regions": ["iad1"],
+  "env": {
+    "GROQ_API_KEY": "@groq-api-key",
+    "OPENAI_API_KEY": "@openai-api-key",
+    "ANTHROPIC_API_KEY": "@anthropic-api-key",
+    "GOOGLE_AI_KEY": "@google-ai-key",
+    "REPLICATE_API_TOKEN": "@replicate-api-token",
+    "SUNO_API_KEY": "@suno-api-key"
+  }
+}
