@@ -1,0 +1,56 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = env("DATABASE_URL")
+}
+
+model Rhyme {
+  id          String   @id @default(cuid())
+  title       String
+  lyrics      String
+  language    String   @default("en")
+  theme       String?
+  style       String?
+  musicUrl    String?
+  imageUrls   String?
+  videoUrl    String?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+  scenes      Scene[]
+}
+
+model Scene {
+  id          String   @id @default(cuid())
+  rhymeId     String
+  rhyme       Rhyme    @relation(fields: [rhymeId], references: [id])
+  order       Int
+  imageUrl    String?
+  imageStyle  String   @default("cartoon")
+  prompt      String?
+  duration    Float    @default(5.0)
+  narrationUrl String?
+  createdAt   DateTime @default(now())
+}
+
+model GameProgress {
+  id          String   @id @default(cuid())
+  gameType    String
+  score       Int      @default(0)
+  stars       Int      @default(0)
+  level       Int      @default(1)
+  language    String   @default("en")
+  completedAt DateTime?
+  createdAt   DateTime @default(now())
+}
+
+model Asset {
+  id          String   @id @default(cuid())
+  type        String
+  name        String
+  url         String
+  metadata    String?
+  createdAt   DateTime @default(now())
+}
