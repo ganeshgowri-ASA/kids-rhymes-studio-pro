@@ -1,6 +1,6 @@
 "use client";
 import { useState, useMemo, useCallback } from "react";
-import { GameWrapper } from "@/components/games/GameWrapper";
+import GameWrapper from "@/components/games/GameWrapper";
 
 const CARD_EMOJIS = ["🐶", "🐱", "🐰", "🦁", "🐸", "🦊", "🐼", "🐨"];
 

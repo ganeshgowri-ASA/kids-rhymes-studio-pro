@@ -106,7 +106,7 @@ export default function ExportDialog({
         (p) => setProgress(80 + p * 0.2)
       );
 
-      const blob = new Blob([finalData], {
+      const blob = new Blob([finalData as BlobPart], {
         type:
           exportFormat === "mp4"
             ? "video/mp4"

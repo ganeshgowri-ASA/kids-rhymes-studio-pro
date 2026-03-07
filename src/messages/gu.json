@@ -1,0 +1,101 @@
+{
+  "nav": {
+    "home": "હોમ",
+    "rhymes": "ગીતો",
+    "studio": "સ્ટુડિયો",
+    "games": "રમતો",
+    "library": "લાઇબ્રેરી",
+    "settings": "સેટિંગ્સ"
+  },
+  "dashboard": {
+    "welcome": "કિડ્સ રાઇમ્સ સ્ટુડિયોમાં સ્વાગત છે",
+    "subtitle": "તમારી ભાષામાં ગીતો બનાવો, ગાઓ અને રમો!",
+    "createRhymes": "ગીતો બનાવો",
+    "createRhymesDesc": "AI ની મદદથી મજાના ગીતો લખો",
+    "productionStudio": "પ્રોડક્શન સ્ટુડિયો",
+    "productionStudioDesc": "સંગીત, ચિત્રો અને વીડિયો બનાવો",
+    "playGames": "રમતો રમો",
+    "playGamesDesc": "મજા સાથે શીખો",
+    "myLibrary": "મારી લાઇબ્રેરી",
+    "myLibraryDesc": "તમારા સાચવેલા ગીતો અને રચનાઓ"
+  },
+  "rhymes": {
+    "title": "ગીત રચનાકાર",
+    "generateLyrics": "ગીત બનાવો",
+    "editLyrics": "ગીત સંપાદિત કરો",
+    "saveLyrics": "ગીત સાચવો",
+    "selectTheme": "વિષય પસંદ કરો",
+    "selectLanguage": "ભાષા પસંદ કરો",
+    "themes": {
+      "animals": "પ્રાણીઓ",
+      "colors": "રંગો",
+      "numbers": "સંખ્યાઓ",
+      "fruits": "ફળો",
+      "festivals": "તહેવારો",
+      "nature": "પ્રકૃતિ",
+      "family": "પરિવાર",
+      "bodyParts": "શરીરના અંગો",
+      "transport": "વાહનો",
+      "greetings": "શુભેચ્છાઓ"
+    }
+  },
+  "studio": {
+    "title": "પ્રોડક્શન સ્ટુડિયો",
+    "music": "સંગીત",
+    "images": "ચિત્રો",
+    "video": "વીડિયો",
+    "voice": "અવાજ",
+    "generateMusic": "સંગીત બનાવો",
+    "generateImage": "ચિત્ર બનાવો",
+    "generateVideo": "વીડિયો બનાવો",
+    "generateVoice": "અવાજ બનાવો",
+    "styleSelector": "શૈલી પસંદ કરો",
+    "styles": {
+      "lullaby": "હાલરડું",
+      "upbeat": "ઝડપી ધૂન",
+      "classical": "શાસ્ત્રીય ભારતીય",
+      "folk": "લોકસંગીત"
+    },
+    "imageMode": {
+      "cartoon": "કાર્ટૂન",
+      "realistic": "વાસ્તવિક"
+    }
+  },
+  "games": {
+    "title": "મજાની રમતો",
+    "alphabet": "અક્ષર લખવા",
+    "alphabetDesc": "અક્ષરો લખતા શીખો",
+    "counting": "ગણતરીની મજા",
+    "countingDesc": "વસ્તુઓ ગણો અને સંખ્યાઓ શીખો",
+    "matching": "મેમરી મેચ",
+    "matchingDesc": "કાર્ડ ફેરવો અને જોડી શોધો",
+    "karaoke": "ગીત કરાઓકે",
+    "karaokeDesc": "ગીતો સાથે ગાઓ",
+    "puzzle": "પઝલ રમત",
+    "puzzleDesc": "ટુકડાઓ જોડીને ચિત્ર પૂર્ણ કરો",
+    "score": "સ્કોર",
+    "stars": "તારાઓ",
+    "playAgain": "ફરીથી રમો",
+    "nextLevel": "આગલું સ્તર"
+  },
+  "common": {
+    "loading": "લોડ થઈ રહ્યું છે...",
+    "save": "સેવ",
+    "cancel": "રદ કરો",
+    "delete": "કાઢી નાખો",
+    "edit": "સંપાદિત કરો",
+    "generate": "બનાવો",
+    "download": "ડાઉનલોડ",
+    "share": "શેર કરો",
+    "back": "પાછા",
+    "next": "આગળ",
+    "play": "ચલાવો",
+    "pause": "વિરામ",
+    "stop": "બંધ કરો",
+    "retry": "ફરી પ્રયાસ કરો",
+    "error": "કંઈક ખોટું થયું",
+    "success": "સફળ!",
+    "language": "ભાષા",
+    "selectLanguage": "ભાષા પસંદ કરો"
+  }
+}

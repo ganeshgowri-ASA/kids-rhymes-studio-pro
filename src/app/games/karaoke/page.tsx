@@ -1,6 +1,6 @@
 "use client";
 import { useState, useEffect } from "react";
-import { GameWrapper } from "@/components/games/GameWrapper";
+import GameWrapper from "@/components/games/GameWrapper";
 import { Play, Pause } from "lucide-react";
 
 const SAMPLE_LYRICS = [
