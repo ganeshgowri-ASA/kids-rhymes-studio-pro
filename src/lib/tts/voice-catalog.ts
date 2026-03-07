@@ -68,5 +68,5 @@ export function getVoiceById(id: string): VoiceEntry | undefined {
 }
 
 export function getAvailableLanguages(): string[] {
-  return [...new Set(VOICE_CATALOG.map((v) => v.language))];
+  return Array.from(new Set(VOICE_CATALOG.map((v) => v.language)));
 }

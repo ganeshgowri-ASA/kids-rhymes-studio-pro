@@ -1,6 +1,6 @@
 "use client";
 import { useState, useMemo } from "react";
-import { GameWrapper } from "@/components/games/GameWrapper";
+import GameWrapper from "@/components/games/GameWrapper";
 import { RotateCcw } from "lucide-react";
 
 function shuffleArray<T>(arr: T[]): T[] {

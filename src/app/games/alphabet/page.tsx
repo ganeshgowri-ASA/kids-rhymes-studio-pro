@@ -1,6 +1,6 @@
 "use client";
 import { useState } from "react";
-import { GameWrapper } from "@/components/games/GameWrapper";
+import GameWrapper from "@/components/games/GameWrapper";
 
 const LETTERS = "ABCDEFGHIJKLMNOPQRSTUVWXYZ".split("");
 

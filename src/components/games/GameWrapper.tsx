@@ -1,13 +1,38 @@
 'use client';
 
-import { useEffect, useRef, useState, useCallback } from 'react';
+import { useEffect, useRef, useState, useCallback, ReactNode } from 'react';
 import { useGameStore, GameType } from '@/store/game-store';
 
-interface GameWrapperProps {
+interface PhaserGameWrapperProps {
   gameType: GameType;
+  children?: never;
+  title?: never;
+  gameId?: never;
 }
 
-export default function GameWrapper({ gameType }: GameWrapperProps) {
+interface LayoutGameWrapperProps {
+  children: ReactNode;
+  title: string;
+  gameId: string;
+  gameType?: never;
+}
+
+type GameWrapperProps = PhaserGameWrapperProps | LayoutGameWrapperProps;
+
+export default function GameWrapper(props: GameWrapperProps) {
+  if ('children' in props && props.children) {
+    return (
+      <div className="max-w-2xl mx-auto p-4">
+        <h1 className="font-heading text-2xl font-bold text-center mb-6">{props.title}</h1>
+        {props.children}
+      </div>
+    );
+  }
+
+  return <PhaserGameWrapper gameType={(props as PhaserGameWrapperProps).gameType} />;
+}
+
+function PhaserGameWrapper({ gameType }: { gameType: GameType }) {
   const containerRef = useRef<HTMLDivElement>(null);
   const gameRef = useRef<Phaser.Game | null>(null);
   const [isFullscreen, setIsFullscreen] = useState(false);
@@ -24,11 +49,9 @@ export default function GameWrapper({ gameType }: GameWrapperProps) {
     let mounted = true;
 
     async function initGame() {
-      // Dynamic import - no SSR
       const Phaser = (await import('phaser')).default;
       const { createGameConfig } = await import('@/games/config');
 
-      // Import the correct scene
       let SceneClass: typeof Phaser.Scene;
       switch (gameType) {
         case 'alphabet':
@@ -52,7 +75,6 @@ export default function GameWrapper({ gameType }: GameWrapperProps) {
 
       if (!mounted || !containerRef.current) return;
 
-      // Destroy existing game
       if (gameRef.current) {
         gameRef.current.destroy(true);
         gameRef.current = null;
@@ -64,7 +86,6 @@ export default function GameWrapper({ gameType }: GameWrapperProps) {
       const game = new Phaser.Game(config);
       gameRef.current = game;
 
-      // Pass data to scene
       game.events.once('ready', () => {
         const scene = game.scene.getScene(SceneClass.name || gameType);
         if (scene) {
@@ -72,7 +93,6 @@ export default function GameWrapper({ gameType }: GameWrapperProps) {
         }
       });
 
-      // Listen for game completion
       game.events.on('gameComplete', handleGameComplete);
     }
 

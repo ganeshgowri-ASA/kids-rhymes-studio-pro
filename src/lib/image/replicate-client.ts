@@ -79,11 +79,11 @@ export async function generateImage(req: ImageRequest): Promise<ImageResponse> {
       input.num_inference_steps = 4;
     }
 
-    const prediction = await client.predictions.create({
-      model: req.style === "realistic" ? model : undefined,
-      version: req.style === "cartoon" ? model.split(":")[1] : undefined,
-      input,
-    });
+    const createParams = req.style === "realistic"
+      ? { model, input }
+      : { version: model.split(":")[1], input };
+
+    const prediction = await client.predictions.create(createParams);
 
     return {
       id: prediction.id,

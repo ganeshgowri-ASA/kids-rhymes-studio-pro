@@ -101,3 +101,42 @@ export function buildPrompt(scene: string, style: ImageStyle, theme?: string): s
 export function getNegativePrompt(style: ImageStyle): string {
   return style === "cartoon" ? NEGATIVE_PROMPT_CARTOON : NEGATIVE_PROMPT_REALISTIC;
 }
+
+export const SCENE_TEMPLATES = [
+  {
+    category: "Nature",
+    scenes: [
+      "Children playing in a sunny garden with butterflies",
+      "Kids flying kites on a green hill",
+      "Children splashing in rain puddles",
+      "Kids planting seeds in a garden",
+    ],
+  },
+  {
+    category: "Animals",
+    scenes: [
+      "Children feeding colorful parrots",
+      "Kids riding elephants in a jungle",
+      "Children playing with puppies and kittens",
+      "Kids watching peacocks dance",
+    ],
+  },
+  {
+    category: "Festivals",
+    scenes: [
+      "Children lighting diyas for Diwali",
+      "Kids playing with colors during Holi",
+      "Children decorating a Christmas tree",
+      "Kids making rangoli patterns",
+    ],
+  },
+  {
+    category: "Activities",
+    scenes: [
+      "Children singing and dancing in a circle",
+      "Kids painting on large canvases outdoors",
+      "Children reading books under a banyan tree",
+      "Kids playing traditional Indian games",
+    ],
+  },
+];

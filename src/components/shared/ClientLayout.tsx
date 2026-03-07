@@ -1,5 +1,5 @@
 "use client";
-import { Sidebar } from "./Sidebar";
+import Sidebar from "./Sidebar";
 import { ErrorBoundary } from "./ErrorBoundary";
 import { OfflineDetector } from "./OfflineDetector";
 import { useAppStore } from "@/store/app-store";
