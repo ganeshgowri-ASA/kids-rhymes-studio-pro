@@ -1,0 +1,7 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+@import url('https://fonts.googleapis.com/css2?family=Baloo+2:wght@400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+:root { --bg-primary: #FFF5F5; --accent: #FF6B9D; }
+body { font-family: 'Inter', sans-serif; background: var(--bg-primary); }
+.font-heading { font-family: 'Baloo 2', cursive; }
