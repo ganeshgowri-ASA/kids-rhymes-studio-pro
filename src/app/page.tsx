@@ -1,8 +1,7 @@
 "use client";
-import { useState } from "react";
 import { useAppStore } from "@/store/app-store";
 import { LANGUAGES } from "@/config/languages";
-import { Music, Film, Gamepad2, BookOpen, Globe, Play, Sparkles, Star } from "lucide-react";
+import { Music, Film, Gamepad2, BookOpen, Sparkles } from "lucide-react";
 
 const features = [
   { icon: Music, title: "Rhymes Engine", desc: "AI-generated lyrics in 6+ Indian languages", color: "from-pink-400 to-rose-400", href: "/rhymes" },
@@ -13,7 +12,6 @@ const features = [
 
 export default function Home() {
   const { language, setLanguage } = useAppStore();
-  const [activeTab, setActiveTab] = useState("home");
   return (
     <div className="min-h-screen">
       {/* Header */}
