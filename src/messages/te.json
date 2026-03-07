@@ -1,1 +1,101 @@
-{"nav":{"home":"\u0c39\u0c4b\u0c2e\u0c4d","rhymes":"\u0c2a\u0c3e\u0c1f\u0c32\u0c41","studio":"\u0c38\u0c4d\u0c1f\u0c42\u0c21\u0c3f\u0c2f\u0c4b","games":"\u0c06\u0c1f\u0c32\u0c41","settings":"\u0c38\u0c46\u0c1f\u0c4d\u0c1f\u0c3f\u0c02\u0c17\u0c4d\u0c38\u0c4d"},"dashboard":{"welcome":"\u0c15\u0c3f\u0c21\u0c4d\u0c38\u0c4d \u0c30\u0c48\u0c2e\u0c4d\u0c38\u0c4d \u0c38\u0c4d\u0c1f\u0c42\u0c21\u0c3f\u0c2f\u0c4b\u0c15\u0c3f \u0c38\u0c4d\u0c35\u0c3e\u0c17\u0c24\u0c02"},"common":{"loading":"\u0c32\u0c4b\u0c21\u0c4d \u0c05\u0c35\u0c41\u0c24\u0c41\u0c28\u0c4d\u0c28\u0c26\u0c3f...","save":"\u0c38\u0c47\u0c35\u0c4d","generate":"\u0c30\u0c42\u0c2a\u0c4a\u0c02\u0c26\u0c3f\u0c02\u0c1a\u0c41","back":"\u0c35\u0c46\u0c28\u0c41\u0c15\u0c15\u0c41"}}
+{
+  "nav": {
+    "home": "హోమ్",
+    "rhymes": "పాటలు",
+    "studio": "స్టూడియో",
+    "games": "ఆటలు",
+    "library": "లైబ్రరీ",
+    "settings": "సెట్టింగ్స్"
+  },
+  "dashboard": {
+    "welcome": "కిడ్స్ రైమ్స్ స్టూడియోకి స్వాగతం",
+    "subtitle": "మీ భాషలో పాటలు రాయండి, పాడండి మరియు ఆడండి!",
+    "createRhymes": "పాటలు రాయండి",
+    "createRhymesDesc": "AI సహాయంతో సరదా పాటలు రాయండి",
+    "productionStudio": "ప్రొడక్షన్ స్టూడియో",
+    "productionStudioDesc": "సంగీతం, చిత్రాలు మరియు వీడియోలు తయారు చేయండి",
+    "playGames": "ఆటలు ఆడండి",
+    "playGamesDesc": "సరదాగా నేర్చుకోండి",
+    "myLibrary": "నా లైబ్రరీ",
+    "myLibraryDesc": "మీరు సేవ్ చేసిన పాటలు మరియు సృష్టులు"
+  },
+  "rhymes": {
+    "title": "పాట రచయిత",
+    "generateLyrics": "సాహిత్యం రూపొందించు",
+    "editLyrics": "సాహిత్యం సవరించు",
+    "saveLyrics": "సాహిత్యం సేవ్ చేయి",
+    "selectTheme": "అంశం ఎంచుకోండి",
+    "selectLanguage": "భాష ఎంచుకోండి",
+    "themes": {
+      "animals": "జంతువులు",
+      "colors": "రంగులు",
+      "numbers": "సంఖ్యలు",
+      "fruits": "పండ్లు",
+      "festivals": "పండుగలు",
+      "nature": "ప్రకృతి",
+      "family": "కుటుంబం",
+      "bodyParts": "శరీర భాగాలు",
+      "transport": "రవాణా",
+      "greetings": "శుభాకాంక్షలు"
+    }
+  },
+  "studio": {
+    "title": "ప్రొడక్షన్ స్టూడియో",
+    "music": "సంగీతం",
+    "images": "చిత్రాలు",
+    "video": "వీడియో",
+    "voice": "గొంతు",
+    "generateMusic": "సంగీతం రూపొందించు",
+    "generateImage": "చిత్రం రూపొందించు",
+    "generateVideo": "వీడియో రూపొందించు",
+    "generateVoice": "గొంతు రూపొందించు",
+    "styleSelector": "శైలి ఎంచుకోండి",
+    "styles": {
+      "lullaby": "జోల పాట",
+      "upbeat": "హుషారు పాట",
+      "classical": "శాస్త్రీయ భారతీయ",
+      "folk": "జానపద సంగీతం"
+    },
+    "imageMode": {
+      "cartoon": "కార్టూన్",
+      "realistic": "వాస్తవిక"
+    }
+  },
+  "games": {
+    "title": "సరదా ఆటలు",
+    "alphabet": "అక్షరాలు రాయడం",
+    "alphabetDesc": "అక్షరాలు రాయడం నేర్చుకోండి",
+    "counting": "లెక్కింపు సరదా",
+    "countingDesc": "వస్తువులను లెక్కించి సంఖ్యలు నేర్చుకోండి",
+    "matching": "జ్ఞాపకశక్తి ఆట",
+    "matchingDesc": "కార్డులు తిప్పి జతలు కనుగొనండి",
+    "karaoke": "పాట కరోకే",
+    "karaokeDesc": "పాటలతో పాటు పాడండి",
+    "puzzle": "పజిల్ ఆట",
+    "puzzleDesc": "ముక్కలను కలిపి చిత్రం పూర్తి చేయండి",
+    "score": "స్కోరు",
+    "stars": "నక్షత్రాలు",
+    "playAgain": "మళ్ళీ ఆడండి",
+    "nextLevel": "తదుపరి స్థాయి"
+  },
+  "common": {
+    "loading": "లోడ్ అవుతున్నది...",
+    "save": "సేవ్",
+    "cancel": "రద్దు చేయి",
+    "delete": "తొలగించు",
+    "edit": "సవరించు",
+    "generate": "రూపొందించు",
+    "download": "డౌన్‌లోడ్",
+    "share": "పంచుకోండి",
+    "back": "వెనుకకు",
+    "next": "తదుపరి",
+    "play": "ప్లే",
+    "pause": "ఆపు",
+    "stop": "ఆపివేయి",
+    "retry": "మళ్ళీ ప్రయత్నించు",
+    "error": "ఏదో తప్పు జరిగింది",
+    "success": "విజయం!",
+    "language": "భాష",
+    "selectLanguage": "భాష ఎంచుకోండి"
+  }
+}
