@@ -2,8 +2,7 @@
 
 import { useEffect, useRef, useCallback } from "react";
 import { useMusicStore, Track } from "@/store/music-store";
-import { getAudioContext, createAnalyser, formatTime } from "@/lib/music/audio-utils";
-import AudioVisualizer from "./AudioVisualizer";
+import { formatTime } from "@/lib/music/audio-utils";
 import {
   Play,
   Pause,
@@ -27,14 +26,12 @@ export default function MusicPlayer() {
   } = useMusicStore();
 
   const audioRef = useRef<HTMLAudioElement | null>(null);
-  const sourceRef = useRef<MediaElementAudioSourceNode | null>(null);
-  const analyserRef = useRef<AnalyserNode | null>(null);
 
   // Setup audio element
   useEffect(() => {
     if (!audioRef.current) {
       audioRef.current = new Audio();
-      audioRef.current.crossOrigin = "anonymous";
+      // Don't set crossOrigin to avoid CORS issues with external audio URLs
     }
     return () => {
       if (audioRef.current) {
@@ -51,19 +48,9 @@ export default function MusicPlayer() {
 
     audio.src = currentTrack.audioUrl;
     audio.load();
-
-    // Setup Web Audio API analyser
-    try {
-      const ctx = getAudioContext();
-      if (!sourceRef.current) {
-        sourceRef.current = ctx.createMediaElementSource(audio);
-      }
-      analyserRef.current = createAnalyser(sourceRef.current);
-    } catch {
-      // Analyser may already be connected
-    }
-
-    audio.play().then(() => setPlaying(true)).catch(() => {});
+    audio.play().then(() => setPlaying(true)).catch((err) => {
+      console.warn("Auto-play blocked or failed:", err);
+    });
   }, [currentTrack, setPlaying]);
 
   // Sync volume and speed
@@ -84,6 +71,7 @@ export default function MusicPlayer() {
 
     audio.addEventListener("timeupdate", onTimeUpdate);
     audio.addEventListener("ended", onEnded);
+
     return () => {
       audio.removeEventListener("timeupdate", onTimeUpdate);
       audio.removeEventListener("ended", onEnded);
@@ -121,19 +109,19 @@ export default function MusicPlayer() {
 
   if (!currentTrack) {
     return (
-      <div className="bg-white rounded-2xl p-6 shadow-sm border text-center text-gray-400">
+      <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-8 text-center text-gray-400">
         <p>Select a track or generate music to start playing</p>
       </div>
     );
   }
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border space-y-4">
+    <div className="bg-white/80 backdrop-blur-sm rounded-2xl p-6 space-y-4">
       {/* Track info */}
       <div className="flex items-center justify-between">
         <div>
           <h3 className="font-bold text-gray-800">{currentTrack.title}</h3>
-          <p className="text-sm text-gray-400 capitalize">
+          <p className="text-sm text-gray-500">
             {currentTrack.style.replace("_", " ")}
           </p>
         </div>
@@ -141,14 +129,10 @@ export default function MusicPlayer() {
           href={currentTrack.audioUrl}
           download
           className="p-2 text-gray-400 hover:text-gray-600 transition-colors"
-          title="Download"
         >
           <Download className="w-5 h-5" />
         </a>
       </div>
-
-      {/* Visualizer */}
-      <AudioVisualizer analyser={analyserRef.current} isPlaying={isPlaying} />
 
       {/* Seek bar */}
       <div className="flex items-center gap-3">
@@ -195,16 +179,16 @@ export default function MusicPlayer() {
         </div>
 
         {/* Center: Play controls */}
-        <div className="flex items-center gap-3">
+        <div className="flex items-center gap-4">
           <button
             onClick={restart}
-            className="p-2 text-gray-500 hover:text-gray-700 transition-colors"
+            className="p-2 text-gray-500 hover:text-gray-700"
           >
             <SkipBack className="w-5 h-5" />
           </button>
           <button
             onClick={togglePlay}
-            className="w-12 h-12 rounded-full bg-gradient-to-br from-pink-400 to-purple-500 text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105"
+            className="w-12 h-12 rounded-full bg-gradient-to-r from-pink-400 to-purple-500 text-white flex items-center justify-center shadow-lg hover:shadow-xl transition-all hover:scale-105"
           >
             {isPlaying ? (
               <Pause className="w-5 h-5" />
@@ -212,7 +196,6 @@ export default function MusicPlayer() {
               <Play className="w-5 h-5 ml-0.5" />
             )}
           </button>
-          <div />
         </div>
 
         {/* Right: Speed */}
