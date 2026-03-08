@@ -1,0 +1,25 @@
+{
+  "name": "Kids Rhymes Studio Pro",
+  "short_name": "Kids Rhymes",
+  "description": "AI-powered Kids Rhymes, Videos & Games Production Studio",
+  "start_url": "/",
+  "display": "standalone",
+  "background_color": "#fce4ec",
+  "theme_color": "#ec4899",
+  "orientation": "portrait-primary",
+  "categories": ["education", "kids", "entertainment"],
+  "icons": [
+    {
+      "src": "/icon-192.png",
+      "sizes": "192x192",
+      "type": "image/png",
+      "purpose": "any maskable"
+    },
+    {
+      "src": "/icon-512.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ]
+}

@@ -72,11 +72,10 @@ export default function AudioPlayer({ src, title = "No track selected", artist }
   };
 
   return (
-    <div className="bg-white rounded-2xl border border-pink-100 p-4 shadow-sm">
+    <div className="glass-card rounded-2xl p-4 shadow-sm">
       {src && <audio ref={audioRef} src={src} preload="metadata" />}
 
       <div className="flex items-center gap-4">
-        {/* Play/Pause */}
         <button
           onClick={togglePlay}
           disabled={!src}
@@ -86,16 +85,14 @@ export default function AudioPlayer({ src, title = "No track selected", artist }
           {playing ? <Pause className="w-4 h-4" /> : <Play className="w-4 h-4 ml-0.5" />}
         </button>
 
-        {/* Track info + progress */}
         <div className="flex-1 min-w-0">
           <div className="flex items-baseline gap-2 mb-1.5">
-            <span className="text-sm font-medium text-gray-800 truncate">{title}</span>
+            <span className="text-sm font-medium text-gray-800 dark:text-white truncate">{title}</span>
             {artist && <span className="text-xs text-gray-400 truncate">{artist}</span>}
           </div>
 
-          {/* Progress bar */}
           <div
-            className="group relative h-1.5 bg-gray-100 rounded-full cursor-pointer hover:h-2.5 transition-all"
+            className="group relative h-1.5 bg-gray-100 dark:bg-gray-700 rounded-full cursor-pointer hover:h-2.5 transition-all"
             onClick={handleSeek}
             role="slider"
             aria-label="Seek"
@@ -115,7 +112,6 @@ export default function AudioPlayer({ src, title = "No track selected", artist }
           </div>
         </div>
 
-        {/* Volume */}
         <div className="hidden sm:flex items-center gap-2 flex-shrink-0">
           <button onClick={toggleMute} className="text-gray-400 hover:text-pink-500 transition-colors" aria-label={muted ? "Unmute" : "Mute"}>
             {muted || volume === 0 ? <VolumeX className="w-4 h-4" /> : <Volume2 className="w-4 h-4" />}
