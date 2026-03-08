@@ -1,5 +1,7 @@
 # Kids Rhymes Studio Pro
 
+> **v2.0** - Professional UI/UX Upgrade with Dark Mode, Animations, PWA Support & 7 Indian Languages
+
 AI-powered Kids Rhymes, Videos & Games Production Studio built with Next.js 14, Phaser.js, and multilingual Indian language support.
 
 ## Overview
