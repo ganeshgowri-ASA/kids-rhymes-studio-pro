@@ -176,3 +176,8 @@ See [CLAUDE.md](./CLAUDE.md) for structured Claude Code IDE session plans.
 ## License
 
 MIT License - see [LICENSE](./LICENSE)
+
+
+## Live Demo
+
+**[kids-rhymes-studio-pro.vercel.app](https://kids-rhymes-studio-pro.vercel.app)**
