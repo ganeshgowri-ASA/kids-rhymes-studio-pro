@@ -18,6 +18,7 @@ const labels: Record<string, string> = {
   matching: "Memory Match",
   karaoke: "Rhyme Karaoke",
   puzzle: "Jigsaw Puzzle",
+  settings: "Settings",
 };
 
 export function Breadcrumbs() {
@@ -26,8 +27,8 @@ export function Breadcrumbs() {
   if (segments.length === 0) return null;
 
   return (
-    <nav className="flex items-center gap-1.5 text-sm text-gray-500 mb-6">
-      <Link href="/" className="hover:text-pink-500 transition-colors">
+    <nav className="flex items-center gap-1.5 text-sm text-gray-500 dark:text-gray-400 mb-6" aria-label="Breadcrumb">
+      <Link href="/" className="hover:text-pink-500 transition-colors" aria-label="Home">
         <Home className="w-4 h-4" />
       </Link>
       {segments.map((seg, i) => {
@@ -37,7 +38,7 @@ export function Breadcrumbs() {
           <span key={href} className="flex items-center gap-1.5">
             <ChevronRight className="w-3 h-3" />
             {isLast ? (
-              <span className="text-gray-800 font-medium">{labels[seg] || seg}</span>
+              <span className="text-gray-800 dark:text-white font-medium" aria-current="page">{labels[seg] || seg}</span>
             ) : (
               <Link href={href} className="hover:text-pink-500 transition-colors">
                 {labels[seg] || seg}

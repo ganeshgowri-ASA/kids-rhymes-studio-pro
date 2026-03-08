@@ -3,48 +3,44 @@
 import { Menu, Moon, Sun } from "lucide-react";
 import { useAppStore } from "@/store/app-store";
 import LanguageSwitcher from "./LanguageSwitcher";
+import { Breadcrumbs } from "./Breadcrumbs";
 
 export default function Header() {
   const { darkMode, toggleDarkMode, toggleSidebar } = useAppStore();
 
   return (
-    <header className="sticky top-0 z-30 bg-white/80 backdrop-blur-md border-b border-pink-100">
+    <header className="sticky top-0 z-30 bg-white/80 dark:bg-gray-900/80 backdrop-blur-md border-b border-pink-100 dark:border-gray-800">
       <div className="flex items-center justify-between px-4 py-3 lg:px-6">
-        {/* Left: mobile menu + title */}
         <div className="flex items-center gap-3">
           <button
             onClick={toggleSidebar}
-            className="lg:hidden p-2 rounded-xl hover:bg-pink-50 transition-colors"
+            className="lg:hidden p-2 rounded-xl hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors"
             aria-label="Open menu"
           >
-            <Menu className="w-5 h-5 text-gray-600" />
+            <Menu className="w-5 h-5 text-gray-600 dark:text-gray-400" />
           </button>
-          <h2 className="font-heading text-xl font-bold text-gray-800 hidden md:block">
-            Kids Rhymes Studio Pro
-          </h2>
+          <div className="hidden md:block">
+            <Breadcrumbs />
+          </div>
         </div>
 
-        {/* Animated notes (decorative) */}
-        <div className="hidden lg:flex items-center gap-4 text-pink-200 select-none" aria-hidden="true">
+        <div className="hidden lg:flex items-center gap-4 text-pink-200 dark:text-pink-800 select-none" aria-hidden="true">
           {["\u266A", "\u266B", "\u2669"].map((note, i) => (
             <span
               key={i}
               className="text-xl"
-              style={{
-                animation: `noteFloat 3s ease-in-out ${i * 0.5}s infinite`,
-              }}
+              style={{ animation: `noteFloat 3s ease-in-out ${i * 0.5}s infinite` }}
             >
               {note}
             </span>
           ))}
         </div>
 
-        {/* Right: controls */}
         <div className="flex items-center gap-2">
           <LanguageSwitcher />
           <button
             onClick={toggleDarkMode}
-            className="p-2 rounded-xl hover:bg-pink-50 transition-colors"
+            className="p-2 rounded-xl hover:bg-pink-50 dark:hover:bg-gray-800 transition-colors"
             aria-label={darkMode ? "Switch to light mode" : "Switch to dark mode"}
           >
             {darkMode ? (
