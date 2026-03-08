@@ -46,7 +46,24 @@ export default function MusicGenerator() {
       const genData = await genResponse.json();
       const taskId = genData.taskId;
 
-      // Poll for completion
+      // Check if generation is already complete (mock mode returns immediately)
+      if (genData.status === "complete" && genData.audioUrl) {
+        const newTrack: Track = {
+          id: taskId,
+          title: genData.title || `${selectedStyle} - ${new Date().toLocaleTimeString()}`,
+          style: selectedStyle,
+          audioUrl: genData.audioUrl,
+          duration: genData.duration || duration,
+          lyrics: instrumental ? undefined : lyrics,
+          createdAt: Date.now(),
+        };
+        addTrack(newTrack);
+        setCurrentTrack(newTrack);
+        setGenerating(false);
+        return;
+      }
+
+      // Poll for completion (for real API calls)
       let attempts = 0;
       const maxAttempts = 30;
 
@@ -62,14 +79,15 @@ export default function MusicGenerator() {
         if (statusData.status === "complete" && statusData.audioUrl) {
           const newTrack: Track = {
             id: taskId,
-            title: statusData.title || `${selectedStyle} - ${new Date().toLocaleTimeString()}`,
+            title:
+              statusData.title ||
+              `${selectedStyle} - ${new Date().toLocaleTimeString()}`,
             style: selectedStyle,
             audioUrl: statusData.audioUrl,
             duration: statusData.duration || duration,
             lyrics: instrumental ? undefined : lyrics,
             createdAt: Date.now(),
           };
-
           addTrack(newTrack);
           setCurrentTrack(newTrack);
           setGenerating(false);
@@ -101,8 +119,8 @@ export default function MusicGenerator() {
   ]);
 
   return (
-    <div className="bg-white rounded-2xl p-6 shadow-sm border space-y-5">
-      <h2 className="font-bold text-xl text-gray-800">Generate Music</h2>
+    <div className="space-y-6">
+      <h2 className="text-xl font-bold text-gray-800">Generate Music</h2>
 
       {/* Style selector */}
       <div>
@@ -115,8 +133,10 @@ export default function MusicGenerator() {
       {/* Lyrics input */}
       <div>
         <div className="flex items-center justify-between mb-2">
-          <label className="text-sm font-medium text-gray-600">Lyrics</label>
-          <label className="flex items-center gap-2 text-sm text-gray-500">
+          <label className="block text-sm font-medium text-gray-600">
+            Lyrics
+          </label>
+          <label className="flex items-center gap-2 text-sm text-gray-500 cursor-pointer">
             <input
               type="checkbox"
               checked={instrumental}
