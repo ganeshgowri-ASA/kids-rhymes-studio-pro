@@ -14,7 +14,7 @@ const voiceSamples = [
 ];
 
 export default function TTSPage() {
-  const { language } = useAppStore();
+    const { language, setLanguage } = useAppStore();
   const [text, setText] = useState("");
   const [speed, setSpeed] = useState(1);
   const [pitch, setPitch] = useState(1);
@@ -187,10 +187,10 @@ export default function TTSPage() {
             <h3 className="font-heading text-lg font-bold text-gray-800 dark:text-white mb-3">Supported Languages</h3>
             <div className="space-y-1.5">
               {LANGUAGES.map((l) => (
-                <div key={l.code} className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm ${l.code === language ? "bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 font-medium" : "text-gray-600 dark:text-gray-400"}`}>
+                                <button key={l.code} onClick={() => setLanguage(l.code)} className={`flex items-center gap-2 px-3 py-2 rounded-lg text-sm cursor-pointer transition-all ${l.code === language ? "bg-purple-50 dark:bg-purple-900/20 text-purple-600 dark:text-purple-400 font-medium" : "text-gray-600 dark:text-gray-400 hover:bg-gray-50 dark:hover:bg-gray-800"}`}>
                   <span className="text-lg">{l.flag}</span>
                   <span>{l.nativeName}</span>
-                </div>
+                                </button>
               ))}
             </div>
           </div>
