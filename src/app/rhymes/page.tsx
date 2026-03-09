@@ -1,6 +1,6 @@
 'use client';
 
-import { useCallback, useState } from 'react';
+import { useCallback, useEffect, useRef, useState } from 'react';
 import { useAppStore } from '@/store/app-store';
 import { useRhymesStore } from '@/store/rhymes-store';
 import { LANGUAGES } from '@/config/languages';
@@ -8,10 +8,20 @@ import type { LLMProvider } from '@/lib/ai/provider';
 import ThemeSelector from '@/components/rhymes/ThemeSelector';
 import RhymeEditor from '@/components/rhymes/RhymeEditor';
 import RhymeLibrary from '@/components/rhymes/RhymeLibrary';
-import { Sparkles, Copy, Save, Trash2, Languages, Download, Share2, History, ChevronRight } from 'lucide-react';
+import { Sparkles, Copy, Save, Trash2, Languages, Download, Share2, History, ChevronRight, Play, Pause, Square } from 'lucide-react';
 import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
+
+const LANGUAGE_TO_SPEECH_LANG: Record<string, string> = {
+  en: 'en-US',
+  hi: 'hi-IN',
+  te: 'te-IN',
+  ta: 'ta-IN',
+  bn: 'bn-IN',
+  gu: 'gu-IN',
+  kn: 'kn-IN',
+};
 
 const PROVIDERS: { id: LLMProvider; label: string }[] = [
   { id: 'groq', label: 'Groq (Llama 3.1)' },
@@ -28,6 +38,63 @@ export default function RhymesPage() {
     setGenerating, saveRhyme, clearCurrent, savedRhymes,
   } = useRhymesStore();
   const [showHistory, setShowHistory] = useState(false);
+  const [speechState, setSpeechState] = useState<'idle' | 'playing' | 'paused'>('idle');
+  const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+
+  // Cancel speech on unmount
+  useEffect(() => {
+    return () => {
+      window.speechSynthesis?.cancel();
+    };
+  }, []);
+
+  const handlePlay = useCallback(() => {
+    if (!currentLyrics.trim()) return;
+    const synth = window.speechSynthesis;
+    if (!synth) {
+      toast.error('Speech synthesis not supported in this browser');
+      return;
+    }
+
+    if (speechState === 'paused') {
+      synth.resume();
+      setSpeechState('playing');
+      return;
+    }
+
+    // Cancel any ongoing speech
+    synth.cancel();
+
+    const utterance = new SpeechSynthesisUtterance(currentLyrics);
+    const speechLang = LANGUAGE_TO_SPEECH_LANG[language] || 'en-US';
+    utterance.lang = speechLang;
+    utterance.rate = 0.9;
+
+    // Try to find a matching voice
+    const voices = synth.getVoices();
+    const matchingVoice = voices.find(v => v.lang === speechLang) ||
+      voices.find(v => v.lang.startsWith(language));
+    if (matchingVoice) {
+      utterance.voice = matchingVoice;
+    }
+
+    utterance.onend = () => setSpeechState('idle');
+    utterance.onerror = () => setSpeechState('idle');
+
+    utteranceRef.current = utterance;
+    synth.speak(utterance);
+    setSpeechState('playing');
+  }, [currentLyrics, language, speechState]);
+
+  const handlePause = useCallback(() => {
+    window.speechSynthesis?.pause();
+    setSpeechState('paused');
+  }, []);
+
+  const handleStop = useCallback(() => {
+    window.speechSynthesis?.cancel();
+    setSpeechState('idle');
+  }, []);
 
   const generate = useCallback(async () => {
     if (!theme || isGenerating) return;
@@ -114,12 +181,17 @@ export default function RhymesPage() {
 
   const handleDownload = () => {
     if (!currentLyrics) return;
-    const blob = new Blob([`${currentTitle}\n\n${currentLyrics}`], { type: 'text/plain' });
+    const langName = LANGUAGES.find(l => l.code === language)?.name || 'English';
+    const content = `${currentTitle || 'Untitled Rhyme'}\nLanguage: ${langName}\n\n${currentLyrics}`;
+    const blob = new Blob([content], { type: 'text/plain;charset=utf-8' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = `${currentTitle || 'rhyme'}.txt`;
+    a.download = `${(currentTitle || 'rhyme').replace(/[^a-zA-Z0-9\s]/g, '').trim()}.txt`;
+    a.style.display = 'none';
+    document.body.appendChild(a);
     a.click();
+    document.body.removeChild(a);
     URL.revokeObjectURL(url);
     toast.success('Rhyme downloaded!');
   };
@@ -257,6 +329,65 @@ export default function RhymesPage() {
                   </div>
                 )}
 
+                {/* Play & Download Action Bar */}
+                <div className="flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 border-2 border-pink-200 dark:border-pink-800">
+                  {speechState === 'idle' ? (
+                    <button
+                      onClick={handlePlay}
+                      disabled={isGenerating || !currentLyrics.trim()}
+                      className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-bold text-sm hover:shadow-lg disabled:opacity-50 transition-all"
+                      aria-label="Play rhyme"
+                    >
+                      <Play className="w-5 h-5" /> Play Rhyme
+                    </button>
+                  ) : (
+                    <>
+                      {speechState === 'playing' ? (
+                        <button
+                          onClick={handlePause}
+                          className="flex items-center gap-2 px-5 py-2.5 bg-yellow-500 text-white rounded-xl font-bold text-sm hover:bg-yellow-600 transition-colors"
+                          aria-label="Pause"
+                        >
+                          <Pause className="w-5 h-5" /> Pause
+                        </button>
+                      ) : (
+                        <button
+                          onClick={handlePlay}
+                          className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-bold text-sm hover:shadow-lg transition-all"
+                          aria-label="Resume"
+                        >
+                          <Play className="w-5 h-5" /> Resume
+                        </button>
+                      )}
+                      <button
+                        onClick={handleStop}
+                        className="flex items-center gap-2 px-4 py-2.5 bg-red-500 text-white rounded-xl font-bold text-sm hover:bg-red-600 transition-colors"
+                        aria-label="Stop"
+                      >
+                        <Square className="w-4 h-4" /> Stop
+                      </button>
+                    </>
+                  )}
+
+                  <div className="h-8 w-px bg-gray-300 dark:bg-gray-600 mx-1" />
+
+                  <button
+                    onClick={handleDownload}
+                    disabled={isGenerating || !currentLyrics.trim()}
+                    className="flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white rounded-xl font-bold text-sm hover:bg-blue-600 disabled:opacity-50 transition-colors"
+                    aria-label="Download rhyme"
+                  >
+                    <Download className="w-5 h-5" /> Download
+                  </button>
+
+                  {speechState !== 'idle' && (
+                    <span className="ml-auto text-xs text-pink-600 dark:text-pink-400 font-medium flex items-center gap-1">
+                      <span className="inline-block w-2 h-2 rounded-full bg-pink-500 animate-pulse" />
+                      {speechState === 'playing' ? 'Playing...' : 'Paused'}
+                    </span>
+                  )}
+                </div>
+
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3">
                   <button
@@ -274,14 +405,6 @@ export default function RhymesPage() {
                     aria-label="Save rhyme"
                   >
                     <Save className="w-4 h-4" /> Save
-                  </button>
-                  <button
-                    onClick={handleDownload}
-                    className="px-4 py-2 bg-blue-100 dark:bg-blue-900/30 text-blue-700 dark:text-blue-400 rounded-xl text-sm font-medium flex items-center gap-2 hover:bg-blue-200 dark:hover:bg-blue-900/50 transition-colors"
-                    disabled={isGenerating}
-                    aria-label="Download rhyme"
-                  >
-                    <Download className="w-4 h-4" /> Download
                   </button>
                   <button
                     onClick={handleShare}
