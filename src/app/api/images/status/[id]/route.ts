@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from "next/server";
-import { checkPredictionStatus } from "@/lib/image/replicate-client";
+import { getImageStatus } from "@/lib/image/replicate-client";
 
 export async function GET(
   _req: NextRequest,
@@ -12,7 +12,7 @@ export async function GET(
       return NextResponse.json({ error: "Prediction ID is required" }, { status: 400 });
     }
 
-    const result = await checkPredictionStatus(id);
+    const result = await getImageStatus(id);
     return NextResponse.json(result);
   } catch (error) {
     return NextResponse.json(
