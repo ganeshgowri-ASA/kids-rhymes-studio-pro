@@ -1,6 +1,6 @@
 'use client';
 
-import { useRef, useMemo } from 'react';
+import { useRef, useMemo, useCallback } from 'react';
 
 interface RhymeEditorProps {
   value: string;
@@ -9,7 +9,7 @@ interface RhymeEditorProps {
 }
 
 export default function RhymeEditor({ value, onChange, readOnly = false }: RhymeEditorProps) {
-  const textareaRef = useRef<HTMLTextAreaElement>(null);
+  const editorRef = useRef<HTMLDivElement>(null);
 
   const lineCount = useMemo(() => {
     const lines = value.split('\n');
@@ -19,6 +19,12 @@ export default function RhymeEditor({ value, onChange, readOnly = false }: Rhyme
   const lineNumbers = useMemo(() => {
     return Array.from({ length: lineCount }, (_, i) => i + 1);
   }, [lineCount]);
+
+  const handleInput = useCallback(() => {
+    if (editorRef.current && !readOnly) {
+      onChange(editorRef.current.innerText);
+    }
+  }, [onChange, readOnly]);
 
   return (
     <div className="rounded-2xl border-2 border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
@@ -38,17 +44,23 @@ export default function RhymeEditor({ value, onChange, readOnly = false }: Rhyme
             </div>
           ))}
         </div>
-        <textarea
-          ref={textareaRef}
-          value={value}
-          onChange={(e) => onChange(e.target.value)}
-          readOnly={readOnly}
-          placeholder="Your rhyme will appear here..."
-          className="flex-1 py-4 px-4 text-base leading-6 resize-none outline-none min-h-[200px] bg-white dark:bg-gray-900 placeholder:text-gray-300"
-          style={{ color: '#1f2937', fontFamily: "'Noto Sans Telugu', 'Noto Sans Devanagari', 'Noto Sans Tamil', 'Noto Sans Bengali', 'Noto Sans Gujarati', 'Noto Sans Kannada', Inter, sans-serif" }}
-          rows={lineCount}
-          spellCheck={false}
-        />
+        <div className="flex-1 relative min-h-[200px] bg-white dark:bg-gray-900">
+          {!value && (
+            <div className="absolute inset-0 py-4 px-4 text-base leading-6 text-gray-300 pointer-events-none" style={{ fontFamily: "'Noto Sans Telugu', 'Noto Sans Devanagari', 'Noto Sans Tamil', 'Noto Sans Bengali', 'Noto Sans Gujarati', 'Noto Sans Kannada', Inter, sans-serif" }}>
+              Your rhyme will appear here...
+            </div>
+          )}
+          <div
+            ref={editorRef}
+            contentEditable={!readOnly}
+            suppressContentEditableWarning
+            onInput={handleInput}
+            className="py-4 px-4 text-base leading-6 resize-none outline-none min-h-[200px] whitespace-pre-wrap break-words"
+            style={{ color: '#1f2937', fontFamily: "'Noto Sans Telugu', 'Noto Sans Devanagari', 'Noto Sans Tamil', 'Noto Sans Bengali', 'Noto Sans Gujarati', 'Noto Sans Kannada', Inter, sans-serif" }}
+          >
+            {value}
+          </div>
+        </div>
       </div>
     </div>
   );
