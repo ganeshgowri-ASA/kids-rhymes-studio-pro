@@ -21,8 +21,8 @@ export default function RhymeEditor({ value, onChange, readOnly = false }: Rhyme
   }, [lineCount]);
 
   return (
-    <div className="bg-white rounded-2xl border-2 border-gray-100 shadow-sm overflow-hidden">
-      <div className="flex bg-gray-50 px-4 py-2 border-b border-gray-100">
+    <div className="bg-white dark:bg-gray-900 rounded-2xl border-2 border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
+      <div className="flex bg-gray-50 dark:bg-gray-800 px-4 py-2 border-b border-gray-100 dark:border-gray-700">
         <span className="text-xs font-medium text-gray-500">
           {value.split('\n').filter(Boolean).length} lines
         </span>
@@ -31,7 +31,7 @@ export default function RhymeEditor({ value, onChange, readOnly = false }: Rhyme
         </span>
       </div>
       <div className="flex">
-        <div className="select-none bg-gray-50 text-right pr-3 pl-3 py-4 border-r border-gray-100">
+        <div className="select-none bg-gray-50 dark:bg-gray-800 text-right pr-3 pl-3 py-4 border-r border-gray-100 dark:border-gray-700">
           {lineNumbers.map((num) => (
             <div key={num} className="text-xs text-gray-400 leading-6 font-mono">
               {num}
@@ -44,7 +44,8 @@ export default function RhymeEditor({ value, onChange, readOnly = false }: Rhyme
           onChange={(e) => onChange(e.target.value)}
           readOnly={readOnly}
           placeholder="Your rhyme will appear here..."
-          className="flex-1 py-4 px-4 text-base leading-6 font-sans text-gray-700 resize-none outline-none min-h-[200px] bg-transparent placeholder:text-gray-300"
+          className="flex-1 py-4 px-4 text-base leading-6 font-sans resize-none outline-none min-h-[200px] bg-transparent placeholder:text-gray-300"
+          style={{ color: '#1f2937' }}
           rows={lineCount}
           spellCheck={false}
         />
