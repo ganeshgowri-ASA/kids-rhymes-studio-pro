@@ -44,7 +44,7 @@ export default function RhymeEditor({ value, onChange, readOnly = false }: Rhyme
           onChange={(e) => onChange(e.target.value)}
           readOnly={readOnly}
           placeholder="Your rhyme will appear here..."
-          className="flex-1 py-4 px-4 text-base leading-6 font-mono text-gray-700 resize-none outline-none min-h-[200px] bg-transparent placeholder:text-gray-300"
+          className="flex-1 py-4 px-4 text-base leading-6 font-sans text-gray-700 resize-none outline-none min-h-[200px] bg-transparent placeholder:text-gray-300"
           rows={lineCount}
           spellCheck={false}
         />
