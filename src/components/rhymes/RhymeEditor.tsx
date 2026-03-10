@@ -16,6 +16,10 @@ export default function RhymeEditor({ value, onChange, readOnly = false }: Rhyme
     return Math.max(lines.length, 8);
   }, [value]);
 
+  const lineNumbers = useMemo(() => {
+    return Array.from({ length: lineCount }, (_, i) => i + 1);
+  }, [lineCount]);
+
   return (
     <div className="rounded-2xl border-2 border-gray-100 dark:border-gray-700 shadow-sm overflow-hidden">
       <div className="flex bg-gray-50 dark:bg-gray-800 px-4 py-2 border-b border-gray-100 dark:border-gray-700">
@@ -26,23 +30,26 @@ export default function RhymeEditor({ value, onChange, readOnly = false }: Rhyme
           {value.length} characters
         </span>
       </div>
-      {/* Debug: show text in a div to verify rendering */}
-      {value && (
-        <div className="px-4 py-2 bg-yellow-50 border-b border-yellow-200 text-sm" style={{ color: 'black', fontFamily: 'Noto Sans Telugu, Noto Sans Devanagari, Inter, sans-serif' }}>
-          <strong>Preview:</strong> {value}
+      <div className="flex">
+        <div className="select-none bg-gray-50 dark:bg-gray-800 text-right pr-3 pl-3 py-4 border-r border-gray-100 dark:border-gray-700">
+          {lineNumbers.map((num) => (
+            <div key={num} className="text-xs text-gray-400 leading-6 font-mono">
+              {num}
+            </div>
+          ))}
         </div>
-      )}
-      <textarea
-        ref={textareaRef}
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        readOnly={readOnly}
-        placeholder="Your rhyme will appear here..."
-        className="w-full py-4 px-4 text-base leading-6 resize-none outline-none min-h-[200px] bg-white dark:bg-gray-900"
-        style={{ color: 'black', fontFamily: 'Noto Sans Telugu, Noto Sans Devanagari, Inter, sans-serif' }}
-        rows={lineCount}
-        spellCheck={false}
-      />
+        <textarea
+          ref={textareaRef}
+          value={value}
+          onChange={(e) => onChange(e.target.value)}
+          readOnly={readOnly}
+          placeholder="Your rhyme will appear here..."
+          className="flex-1 py-4 px-4 text-base leading-6 resize-none outline-none min-h-[200px] bg-white dark:bg-gray-900 placeholder:text-gray-300"
+          style={{ color: '#1f2937', fontFamily: "'Noto Sans Telugu', 'Noto Sans Devanagari', 'Noto Sans Tamil', 'Noto Sans Bengali', 'Noto Sans Gujarati', 'Noto Sans Kannada', Inter, sans-serif" }}
+          rows={lineCount}
+          spellCheck={false}
+        />
+      </div>
     </div>
   );
 }
