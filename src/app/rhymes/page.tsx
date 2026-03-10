@@ -8,7 +8,7 @@ import type { LLMProvider } from '@/lib/ai/provider';
 import ThemeSelector from '@/components/rhymes/ThemeSelector';
 import RhymeEditor from '@/components/rhymes/RhymeEditor';
 import RhymeLibrary from '@/components/rhymes/RhymeLibrary';
-import { Sparkles, Copy, Save, Trash2, Languages, Download, Share2, History, ChevronRight, Play, Pause, Square } from 'lucide-react';
+import { Sparkles, Copy, Save, Trash2, Languages, Download, FileText, Share2, History, ChevronRight, Play, Pause, Square, Loader2, Volume2 } from 'lucide-react';
 import { Breadcrumbs } from '@/components/shared/Breadcrumbs';
 import { motion, AnimatePresence } from 'framer-motion';
 import { toast } from 'sonner';
@@ -39,62 +39,175 @@ export default function RhymesPage() {
   } = useRhymesStore();
   const [showHistory, setShowHistory] = useState(false);
   const [speechState, setSpeechState] = useState<'idle' | 'playing' | 'paused'>('idle');
+  const [isTTSLoading, setIsTTSLoading] = useState(false);
+  const [audioUrl, setAudioUrl] = useState<string | null>(null);
+  const [audioBlob, setAudioBlob] = useState<Blob | null>(null);
+  const audioRef = useRef<HTMLAudioElement | null>(null);
   const utteranceRef = useRef<SpeechSynthesisUtterance | null>(null);
+  const [usingBrowserTTS, setUsingBrowserTTS] = useState(false);
 
-  // Cancel speech on unmount
+  // Cleanup on unmount
   useEffect(() => {
     return () => {
       window.speechSynthesis?.cancel();
+      if (audioUrl) URL.revokeObjectURL(audioUrl);
     };
+  // eslint-disable-next-line react-hooks/exhaustive-deps
   }, []);
 
-  const handlePlay = useCallback(() => {
-    if (!currentLyrics.trim()) return;
+  // Clear audio when lyrics change
+  useEffect(() => {
+    if (audioUrl) {
+      URL.revokeObjectURL(audioUrl);
+      setAudioUrl(null);
+      setAudioBlob(null);
+    }
+    if (speechState !== 'idle') {
+      handleStop();
+    }
+  // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [currentLyrics]);
+
+  const playBrowserTTS = useCallback(() => {
     const synth = window.speechSynthesis;
     if (!synth) {
       toast.error('Speech synthesis not supported in this browser');
       return;
     }
 
-    if (speechState === 'paused') {
-      synth.resume();
+    setUsingBrowserTTS(true);
+
+    const doSpeak = () => {
+      synth.cancel();
+      const utterance = new SpeechSynthesisUtterance(currentLyrics);
+      const speechLang = LANGUAGE_TO_SPEECH_LANG[language] || 'en-US';
+      utterance.lang = speechLang;
+      utterance.rate = 0.9;
+
+      const voices = synth.getVoices();
+      const matchingVoice = voices.find(v => v.lang === speechLang) ||
+        voices.find(v => v.lang.startsWith(language));
+      if (matchingVoice) {
+        utterance.voice = matchingVoice;
+      }
+
+      utterance.onend = () => { setSpeechState('idle'); setUsingBrowserTTS(false); };
+      utterance.onerror = () => { setSpeechState('idle'); setUsingBrowserTTS(false); };
+
+      utteranceRef.current = utterance;
+      synth.speak(utterance);
+      setSpeechState('playing');
+    };
+
+    // Wait for voices to load if empty
+    const voices = synth.getVoices();
+    if (voices.length === 0) {
+      const handleVoicesChanged = () => {
+        synth.removeEventListener('voiceschanged', handleVoicesChanged);
+        doSpeak();
+      };
+      synth.addEventListener('voiceschanged', handleVoicesChanged);
+      // Timeout fallback in case voiceschanged never fires
+      setTimeout(() => {
+        synth.removeEventListener('voiceschanged', handleVoicesChanged);
+        doSpeak();
+      }, 1000);
+    } else {
+      doSpeak();
+    }
+  }, [currentLyrics, language]);
+
+  const handlePlay = useCallback(async () => {
+    if (!currentLyrics.trim()) return;
+
+    // If browser TTS is paused, resume it
+    if (usingBrowserTTS && speechState === 'paused') {
+      window.speechSynthesis?.resume();
       setSpeechState('playing');
       return;
     }
 
-    // Cancel any ongoing speech
-    synth.cancel();
-
-    const utterance = new SpeechSynthesisUtterance(currentLyrics);
-    const speechLang = LANGUAGE_TO_SPEECH_LANG[language] || 'en-US';
-    utterance.lang = speechLang;
-    utterance.rate = 0.9;
-
-    // Try to find a matching voice
-    const voices = synth.getVoices();
-    const matchingVoice = voices.find(v => v.lang === speechLang) ||
-      voices.find(v => v.lang.startsWith(language));
-    if (matchingVoice) {
-      utterance.voice = matchingVoice;
+    // If we already have audio, replay it
+    if (audioUrl && audioRef.current) {
+      audioRef.current.currentTime = 0;
+      audioRef.current.play();
+      setSpeechState('playing');
+      return;
     }
 
-    utterance.onend = () => setSpeechState('idle');
-    utterance.onerror = () => setSpeechState('idle');
+    // Generate TTS audio from API
+    setIsTTSLoading(true);
+    try {
+      const res = await fetch('/api/tts/synthesize', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ text: currentLyrics, language }),
+      });
 
-    utteranceRef.current = utterance;
-    synth.speak(utterance);
-    setSpeechState('playing');
-  }, [currentLyrics, language, speechState]);
+      const contentType = res.headers.get('Content-Type') || '';
+
+      // Check if server returned JSON (browser_tts fallback or error)
+      if (contentType.includes('application/json')) {
+        const data = await res.json();
+        if (data.status === 'browser_tts') {
+          toast.info('Using browser speech synthesis');
+          setIsTTSLoading(false);
+          playBrowserTTS();
+          return;
+        }
+        if (data.error) {
+          throw new Error(data.error);
+        }
+      }
+
+      // We got audio binary back
+      const blob = await res.blob();
+      const url = URL.createObjectURL(blob);
+
+      // Clean up previous audio URL
+      if (audioUrl) URL.revokeObjectURL(audioUrl);
+
+      setAudioBlob(blob);
+      setAudioUrl(url);
+      setUsingBrowserTTS(false);
+
+      // Play via the audio element after state update
+      setTimeout(() => {
+        if (audioRef.current) {
+          audioRef.current.play();
+          setSpeechState('playing');
+        }
+      }, 100);
+
+      toast.success('Audio generated!');
+    } catch (err) {
+      const msg = err instanceof Error ? err.message : 'TTS failed';
+      toast.error(`TTS failed: ${msg}. Falling back to browser speech.`);
+      playBrowserTTS();
+    }
+    setIsTTSLoading(false);
+  }, [currentLyrics, language, speechState, audioUrl, usingBrowserTTS, playBrowserTTS]);
 
   const handlePause = useCallback(() => {
-    window.speechSynthesis?.pause();
+    if (usingBrowserTTS) {
+      window.speechSynthesis?.pause();
+    } else if (audioRef.current) {
+      audioRef.current.pause();
+    }
     setSpeechState('paused');
-  }, []);
+  }, [usingBrowserTTS]);
 
   const handleStop = useCallback(() => {
-    window.speechSynthesis?.cancel();
+    if (usingBrowserTTS) {
+      window.speechSynthesis?.cancel();
+    }
+    if (audioRef.current) {
+      audioRef.current.pause();
+      audioRef.current.currentTime = 0;
+    }
     setSpeechState('idle');
-  }, []);
+    setUsingBrowserTTS(false);
+  }, [usingBrowserTTS]);
 
   const generate = useCallback(async () => {
     if (!theme || isGenerating) return;
@@ -179,7 +292,21 @@ export default function RhymesPage() {
     setTitle(title);
   }, [setLyrics, setTitle]);
 
-  const handleDownload = () => {
+  const handleDownloadAudio = () => {
+    if (!audioBlob) return;
+    const url = URL.createObjectURL(audioBlob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = `${(currentTitle || 'rhyme').replace(/[^a-zA-Z0-9\s]/g, '').trim()}.mp3`;
+    a.style.display = 'none';
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+    URL.revokeObjectURL(url);
+    toast.success('Audio downloaded!');
+  };
+
+  const handleDownloadLyrics = () => {
     if (!currentLyrics) return;
     const langName = LANGUAGES.find(l => l.code === language)?.name || 'English';
     const content = `${currentTitle || 'Untitled Rhyme'}\nLanguage: ${langName}\n\n${currentLyrics}`;
@@ -193,7 +320,7 @@ export default function RhymesPage() {
     a.click();
     document.body.removeChild(a);
     URL.revokeObjectURL(url);
-    toast.success('Rhyme downloaded!');
+    toast.success('Lyrics downloaded!');
   };
 
   const handleShare = async () => {
@@ -331,7 +458,14 @@ export default function RhymesPage() {
 
                 {/* Play & Download Action Bar */}
                 <div className="flex items-center gap-3 p-4 rounded-2xl bg-gradient-to-r from-pink-50 to-purple-50 dark:from-pink-900/20 dark:to-purple-900/20 border-2 border-pink-200 dark:border-pink-800">
-                  {speechState === 'idle' ? (
+                  {isTTSLoading ? (
+                    <button
+                      disabled
+                      className="flex items-center gap-2 px-5 py-2.5 bg-gradient-to-r from-pink-500 to-purple-500 text-white rounded-xl font-bold text-sm opacity-75"
+                    >
+                      <Loader2 className="w-5 h-5 animate-spin" /> Generating Audio...
+                    </button>
+                  ) : speechState === 'idle' ? (
                     <button
                       onClick={handlePlay}
                       disabled={isGenerating || !currentLyrics.trim()}
@@ -371,13 +505,23 @@ export default function RhymesPage() {
 
                   <div className="h-8 w-px bg-gray-300 dark:bg-gray-600 mx-1" />
 
+                  {audioBlob ? (
+                    <button
+                      onClick={handleDownloadAudio}
+                      className="flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white rounded-xl font-bold text-sm hover:bg-blue-600 transition-colors"
+                      aria-label="Download audio"
+                    >
+                      <Download className="w-5 h-5" /> Download Audio
+                    </button>
+                  ) : null}
+
                   <button
-                    onClick={handleDownload}
+                    onClick={handleDownloadLyrics}
                     disabled={isGenerating || !currentLyrics.trim()}
-                    className="flex items-center gap-2 px-5 py-2.5 bg-blue-500 text-white rounded-xl font-bold text-sm hover:bg-blue-600 disabled:opacity-50 transition-colors"
-                    aria-label="Download rhyme"
+                    className="flex items-center gap-2 px-5 py-2.5 bg-gray-500 text-white rounded-xl font-bold text-sm hover:bg-gray-600 disabled:opacity-50 transition-colors"
+                    aria-label="Download lyrics"
                   >
-                    <Download className="w-5 h-5" /> Download
+                    <FileText className="w-5 h-5" /> Download Lyrics
                   </button>
 
                   {speechState !== 'idle' && (
@@ -387,6 +531,22 @@ export default function RhymesPage() {
                     </span>
                   )}
                 </div>
+
+                {/* HTML5 Audio Player */}
+                {audioUrl && (
+                  <div className="flex items-center gap-3 p-3 rounded-xl bg-white dark:bg-gray-800 border border-gray-200 dark:border-gray-700">
+                    <Volume2 className="w-5 h-5 text-pink-500 flex-shrink-0" />
+                    <audio
+                      ref={audioRef}
+                      src={audioUrl}
+                      controls
+                      className="w-full h-10"
+                      onPlay={() => setSpeechState('playing')}
+                      onPause={() => { if (audioRef.current && !audioRef.current.ended) setSpeechState('paused'); }}
+                      onEnded={() => setSpeechState('idle')}
+                    />
+                  </div>
+                )}
 
                 {/* Action Buttons */}
                 <div className="flex flex-wrap gap-3">

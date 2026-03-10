@@ -17,7 +17,7 @@ export class GoogleTTSProvider implements TTSProvider {
   readonly supportedLanguages = Object.keys(GOOGLE_LANGUAGE_MAP);
 
   private get apiKey(): string | undefined {
-    return process.env.GOOGLE_TTS_API_KEY;
+    return process.env.GOOGLE_AI_API_KEY;
   }
 
   isAvailable(): boolean {
@@ -27,7 +27,7 @@ export class GoogleTTSProvider implements TTSProvider {
   async synthesize(request: TTSRequest): Promise<TTSResult> {
     const apiKey = this.apiKey;
     if (!apiKey) {
-      throw new Error('GOOGLE_TTS_API_KEY is not configured');
+      throw new Error('GOOGLE_AI_API_KEY is not configured');
     }
 
     const langConfig = GOOGLE_LANGUAGE_MAP[request.language];
